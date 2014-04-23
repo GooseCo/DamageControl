@@ -9,14 +9,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DamageControl extends JavaPlugin implements Listener{	
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static DamageControl plugin;
-	public boolean nofall;
-	public boolean nofire;
+	public boolean noFall;
+	public boolean noFire;
+	public boolean noHunger;
+	public boolean noHungerTemp;
 	
 	@Override
 	public void onEnable(){
@@ -27,17 +30,16 @@ public class DamageControl extends JavaPlugin implements Listener{
 	
 	@EventHandler
 	 public void onEntityFallDamage(EntityDamageEvent e){
-		 if(((e.getEntity() instanceof Player) && e.getCause() == org.bukkit.event.entity.EntityDamageEvent.DamageCause.FALL) && (nofall == true))
+		 if(((e.getEntity() instanceof Player) && e.getCause() == org.bukkit.event.entity.EntityDamageEvent.DamageCause.FALL) && (noFall == true))
 			   e.setCancelled(true);
 			 }
 	
 	@EventHandler
 	 public void onEntityFireDamage(EntityDamageEvent event){
-		 if(((event.getEntity() instanceof Player) && event.getCause() == org.bukkit.event.entity.EntityDamageEvent.DamageCause.FIRE || event.getCause() == org.bukkit.event.entity.EntityDamageEvent.DamageCause.FIRE_TICK) && (nofire == true))
-			   event.setCancelled(true);
-		 	   
-		 	   
+		 if(((event.getEntity() instanceof Player) && event.getCause() == org.bukkit.event.entity.EntityDamageEvent.DamageCause.FIRE && noFire == true || event.getCause() == org.bukkit.event.entity.EntityDamageEvent.DamageCause.FIRE_TICK) && (noFire == true))
+			   event.setCancelled(true);  
 			 }
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 		
@@ -47,24 +49,24 @@ public class DamageControl extends JavaPlugin implements Listener{
 			
 		}else if(commandLabel.equalsIgnoreCase("nofall")){
 			
-			if(nofall == true){
-				nofall = false;
+			if(noFall == true){
+				noFall = false;
 				player.sendMessage(ChatColor.AQUA + "Nofall has been disabled.");
-			}else if(nofall == false){
-				nofall = true;
+			}else if(noFall == false){
+				noFall = true;
 				player.sendMessage(ChatColor.AQUA + "Nofall has been enabled.");	
 			}
 		}else if(commandLabel.equalsIgnoreCase("nofire")){
 				
-			if(nofire == true){
-				nofire = false;
+			if(noFire == true){
+				noFire = false;
 				player.sendMessage(ChatColor.RED + "You are now succeptable to damage from fire.");
-			}else if(nofire == false){
-				nofire = true;
+			}else if(noFire == false){
+				noFire = true;
 				player.sendMessage(ChatColor.RED + "You will no longer take damage from fire.");	
 				
 				}
-			}
+		}
 		return false;
 	}
 }
