@@ -1,3 +1,4 @@
+.metadata/*
 .metadata/.log
 .metadata/.mylyn/.taskListIndex/segments.gen
 .metadata/.mylyn/.taskListIndex/segments.gen
