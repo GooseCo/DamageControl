@@ -1,0 +1,12 @@
+name: DamageControl
+author: GooseCo Inc
+main: com.goosecraftmc.DamageControl
+description:>
+            Allows and disallows for different types of damage via commands.
+commands:
+    test:
+        description: A debug test command
+    nofall:
+        description: Toggles fall damage
+    nofire:
+        description: Toggles fire damage
